@@ -101,7 +101,8 @@ cd ..
 mash dist -t sketch.msh sketch.msh>mash.dist
 
 #run panphlan to generate pangenome
-docker run -u $(id -u):$(id -g) -v $PWD:/data -w /data 265157181057.dkr.ecr.cn-northwest-1.amazonaws.com.cn/panphlan:v1.2.4 /bin/bash -c "panphlan_pangenome_generation.py -c target_species --i_fna strain-ref/ --i_gff strain-ref/ -o target_database/"
+#docker run -u $(id -u):$(id -g) -v $PWD:/data -w /data 265157181057.dkr.ecr.cn-northwest-1.amazonaws.com.cn/panphlan:v1.2.4 /bin/bash -c "panphlan_pangenome_generation.py -c target_species --i_fna strain-ref/ --i_gff strain-ref/ -o target_database/"
+panphlan_pangenome_generation.py -c target_species --i_fna strain-ref/ --i_gff strain-ref/ -o target_database/
 
 #generate stats and the list of candidate strains automatically 
 ANI_tb="mash.dist"
