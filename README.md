@@ -1,9 +1,13 @@
 # SimStr
 A pipeline to generate simulation datasets for evaluation on strain analysis from metagenomic data
 
-# Software requirement
+# Install and activate the environment
 
-The docker of SimStr is installed. 
+Pull the docker of SimStr from docker hub
+
+```
+docker pull yuxiangtan/simstr
+```
 
 User can get into the interactive mode by: 
 
