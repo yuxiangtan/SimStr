@@ -1,16 +1,21 @@
-#   Copyright {2015} Yuxiang Tan
+# Copyright {2021} Yuxiang Tan
+# This file is part of SimStr. 
 #
-#   Licensed under the Apache License, Version 2.0 (the "License");
-#   you may not use this file except in compliance with the License.
-#   You may obtain a copy of the License at
+# SimStr is a pipeline to generate simulation datasets for evaluation on strain analysis from metagenomic data.
 #
-#       http://www.apache.org/licenses/LICENSE-2.0
+# SimStr is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
 #
-#   Unless required by applicable law or agreed to in writing, software
-#   distributed under the License is distributed on an "AS IS" BASIS,
-#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-#   See the License for the specific language governing permissions and
-#   limitations under the License.
+# SimStr is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with SimStr.  If not, see <https://www.gnu.org/licenses/>.
+
 
 #usage example: Rscript bench_WGS_table_converter.R sim_table=benchmark_comp_WGS.csv add_name=_WGSerr_r rep_add_time=3 name_out=bench_Ecoli2_WGS_all
 #the output will be a str profile table from the bench table, replicate names and data tye will be added and expanded
@@ -40,7 +45,11 @@ for (e in commandArgs()) {
 
 #check whether the file in is exist
 if (!exists("sim_table")) {
-	stop("\nRscript bench_WGS_table_converter.R sim_table=benchmark_comp_WGS.csv \nWarning: Usage: pan_ref file is not exist, please check the path. \n\n")
+	stop("\nRscript bench_WGS_table_converter.R sim_table=benchmark_comp_WGS.csv \nWarning: Usage: sim_table parameter is not provided. \n\n")
+}
+
+if (!file.exists(sim_table)) {
+    stop(paste("\nRscript bench_table_converter.R sim_table=",sim_table," \nWarning: Usage: simulation bench file is not exist, please check the path. \n\n",sep=""))
 }
 
 #sim_table <- "benchmark_comp_WGS.csv"
@@ -91,7 +100,6 @@ for(i in names(c_s)){
 
 write.table(SIM_matrix_out, file=(paste(name_out,"_str_prof.csv",sep="")),sep=",", quote=F, row.names= TRUE, col.names= TRUE, fileEncoding="UTF-8" )
 
-#然后再写一个比较两个这种matrix的脚本（BC距离），如果方法输出比模拟输出多，额外的行也一样算进去距离里。
 
 
 

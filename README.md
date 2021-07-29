@@ -8,7 +8,7 @@ The docker of SimStr is installed.
 User can get into the interactive mode by: 
 
 ```shell
-docker run  -u $(id -u):$(id -g) --rm -t -i -v /home:/home -v $Path_to_SimStr/:/script -w /home compmetagen/strainest /bin/bash
+docker run  -u $(id -u):$(id -g) --rm -t -i -v /home:/home -v $Path_to_SimStr/:/script -w /home yxtan/simstr:v1 /bin/bash
 ```
 
 In this case, all the Path_to_SimStr in the following guideline could be replaced by /script/. For exampe, within the docker: **Path_to_SimStr="/script/“**
@@ -17,12 +17,15 @@ In this case, all the Path_to_SimStr in the following guideline could be replace
 
 ## 1. Generate the list of candidate strains (with paired WGS data) of a specific species:
 
-  Usage: sh $Path_to_SimStr/SIM_str_ANI_PAN_mash.sh sra_result.csv SraRunInfo.csv strs.csv fileout_header $Path_to_SimStr range_type min_ANI
+For this step, -u option of docker run might lead to the fail of fastq-dump, you can use  "docker run --rm -t -i -v /home:/home -v $Path_to_SimStr/:/script -w /home yxtan/simstr:v1 /bin/bash" instead. However, all the files will be marked "root" as username. 
+
+Usage: sh $Path_to_SimStr/SIM_str_ANI_PAN_mash.sh sra_result.csv SraRunInfo.csv strs.csv fileout_header $Path_to_SimStr range_type min_ANI
     
+
     Required: (all of these files need to be download manually)
     	sra_result.csv: from https://www.ncbi.nlm.nih.gov/sra/, select the target species and select the sent to (top right) -> file -> save summary.
     	SraRunInfo.csv: from https://www.ncbi.nlm.nih.gov/sra/, select the target species and select the sent to (top right) -> file -> save Runinfo.
-    	strs.csv: from https://www.ncbi.nlm.nih.gov/genome/browse/#!/prokaryotes/, select the target species; Select all the strains or subset of the target strains; click 
+    	strs.csv: from https://www.ncbi.nlm.nih.gov/genome/browse/#!/prokaryotes/, select the target species; Select all the strains or subset of the target strains; click download
     	fileout_header: name of output files. For example: Ecoli99_target_str_info 
     	Path_to_SimStr: the full path of SimStr scripts folder. Within the docker, it should be /script/
         range_type - 'wide' which will get the combination with the widest range of ANIs; or 'max ANI value (e.g. 99)' which will get all the strs combinations with ANI smaller or equal to that value, the bigger this value, the more strs you will get.
@@ -62,7 +65,9 @@ Intermediate output folders:
 
 **NOTE 2! If the panphlan failed, need to delete all the panphlan related output and rerun the pipeline (generally, this is caused by the disconnection of download, or users could download first and run panphlan separately), or panphlan will crash again because of the existing files.**
 
+**NOTE 3! If the panphlan failed, need to delete all the panphlan related output and rerun the pipeline (generally, this is caused by the disconnection of download, or users could download first and run panphlan separately), or panphlan will crash again because of the existing files.**
 
+**NOTE 4! SraRunInfo.csv and strs.csv must be the newest one, or the link might be expired and failed.**
 
 ## 2. Manual step: Select the target strains for simulation based on pairwise ANI and AJI, together with generation of composition matrix for simulation.
 
@@ -79,6 +84,8 @@ For the second part of columns, if the composition should follow the Dirichlet d
 ## 3. Generate simulation data by the composition matrix.
 
 By using the composition matrix generated from step 2, you can automatically generate the simulation data.
+
+For this step, if the -u option of docker run lead to the incorrect username (uid or gid unrecognized), the program will fail. In this case just do not use the -u option same as step 1. 
 
 #### For ART simulation: by using the ART matrix (benchmark_comp_ART_1x.csv as example) as input:	
 
@@ -217,6 +224,8 @@ ref_list_files: see ref_list_files.txt as example,  generally, it should include
 ref_tb: generally, it is same as strs.csv in step 1, see Ecoli_strs.csv as example
 
 Note, if the connection was not good enough, the download may be broken and report the error like: "gzip: GCF_000017765.1_ASM1776v1_genomic.fna.gz: invalid compressed data--format violated"
+
+Also note that, the parsnp will randomly pick a strain as root, which sometimes will give out error. Generally, you can just rerun the parsnp command.
 
 
 

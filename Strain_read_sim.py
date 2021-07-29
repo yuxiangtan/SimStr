@@ -3,19 +3,23 @@ from __future__ import print_function
 import glob,os,re,argparse
 
 """
-#   Copyright {2020} Yuxiang Tan
+# Copyright {2021} Yuxiang Tan
+# This file is part of SimStr. 
 #
-#   Licensed under the Apache License, Version 2.0 (the "License");
-#   you may not use this file except in compliance with the License.
-#   You may obtain a copy of the License at
+# SimStr is a pipeline to generate simulation datasets for evaluation on strain analysis from metagenomic data.
 #
-#       http://www.apache.org/licenses/LICENSE-2.0
+# SimStr is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
 #
-#   Unless required by applicable law or agreed to in writing, software
-#   distributed under the License is distributed on an "AS IS" BASIS,
-#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-#   See the License for the specific language governing permissions and
-#   limitations under the License.
+# SimStr is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with SimStr.  If not, see <https://www.gnu.org/licenses/>.
 
 #This script will simulate reads (both errfree and with err) of the selectied genome of a strain with the following parameters in ART.
 
@@ -50,7 +54,7 @@ if __name__ == '__main__':
                         help="The sequencer modle of ART")
     parser.add_argument('-l', '--length', dest='rl', type=int, required=False, default='150',
                         help="The length of simulated reads")
-    parser.add_argument('-f', '--fold_cov', dest='fc', type=int, required=True,
+    parser.add_argument('-f', '--fold_cov', dest='fc', type=float, required=True,
                         help="It is the fold_coverage of the sample")
     parser.add_argument('-m', '--mean_frag', dest='mf', type=int, required=False, default='270',
                         help="The expected mean of length of simulated fragment size")

@@ -1,3 +1,22 @@
+# Copyright {2021} Yuxiang Tan
+# This file is part of SimStr. 
+#
+# SimStr is a pipeline to generate simulation datasets for evaluation on strain analysis from metagenomic data.
+#
+# SimStr is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# SimStr is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with SimStr.  If not, see <https://www.gnu.org/licenses/>.
+
+
 #create log:202000403
 #Objective: To generate the composition matrix following dirichlet distribution based on the number of strains, number of samples and the sum level of each sample
 #Note1: to recognize the group name, use the second set of - in the given dataset name of the cross evaluation step. 
